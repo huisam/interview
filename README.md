@@ -20,9 +20,9 @@
 
 ## 목차
 
-1. [Algorithm](/Algorithm/READEME.md)
-2. [DataBase](/DataBase/README.md)
-3. [Java](/Java/README.md)
-4. [Network](/Network/README.md)
-5. [OS](/OS/README.md)
+1. [Algorithm](/Algorithm)
+2. [DataBase](/DataBase)
+3. [Java](/Java)
+4. [Network](/Network)
+5. [OS](/OS)
 
