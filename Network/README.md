@@ -8,6 +8,7 @@
 2. [TCP](#TCP)
 3. [HTTP HTTPS](#HTTP-HTTPS)
 4. [Chorme에 www.naver.com 을 입력하면?](#Chorme에-www.naver.com-을-입력하면?)
+5. [OAuth](#OAuth)
 
 
 
@@ -35,6 +36,33 @@
 1. `URI` 는 정보의 자원을 표시해야 한다
 2. 자원에 대한 행위는 `HTTP Method` 로 표현한다 (GET, POST, PUT, DELETE)
 
+<br>
+
+### REST 이대로 괜찮은가
+
+네이버의 [그런 REST API로 괜찮은가?](https://www.youtube.com/watch?v=RP_f5dMoHFc) 를 보시면. 
+
+요즘의 `REST` 는 `REST` 하다고 볼 수 없는데, 대부분 **uniform interface** 의 특성을 만족하지 않고 있다
+
+* Self-Descriptiveness 한 특성들이 많이 없고 = **메세지가 스스로 자신의 상태를 설명해야 된다**
+  * profile 을 읽을 수 있는 link가 필요하다
+* Hypermedia as the engine of application state (HATEOS) = **Client Hyperlink로 통해서 상태를 전이해야 한다**
+  * 다음 상태로 요청할 수 있는 link 정보가 필요하다
+
+이 2가지를 거의 지키지 못하고 있다 (ex) v1/book, v2/book 같은 버져닝도 문제).  
+
+그렇기 때문에 위 2가지 특성을 만족시킬 해결책으로는. 
+
+`profile 링크 데이터` 를 추가하면 된다.   
+
+다시말해서, **HAL(Hypertext Application Language)** 를 통해 Response 메세지에 링크 정보를 전달하면 된다
+
+적용하는 방법
+
+* [REST API에 HAL 적용하기](https://blog.aliencube.org/ko/2015/08/16/applying-hal-to-rest-api/)
+
+
+
 
 
 ## TCP
@@ -51,6 +79,7 @@
 <div>
   <img src="img/3-way-handshaking.png" text-align="center" />
 </div>
+
 
 
 
@@ -76,6 +105,7 @@
   <img src="img/isn.png" text-align="center" />
 </div>
 
+
 이 경우에 서버 측에서는 패킷의 SYN을 보고 패킷을 구분하게 되는데, 난수가 아닌 순차적인 Number가 전송된다면. 
 
 이전의 Connection으로부터 오는 패킷으로 인식할 수가 있다.  
@@ -93,6 +123,7 @@
 <div>
   <img src="img/4-way-handshaking.png" text-align="center" />
 </div>
+
 
 이 과정에서는 Client와 Server 둘 다 `커넥션을 종료할 수 있음` 에 유의하고 읽었으면 좋겠다. 
 
@@ -152,6 +183,7 @@ But, `HTTP 1.1` 에는 고질적인 문제가 있었으니, 그것은 바로 **C
   <img src="img/http 1.1 2.0.png" text-align="center" />
 </div>
 
+
 ### HTTP2
 
 그래서 구글에서 SPDY 라는 비표준형 개방형 네트워크 프로토콜을 바탕으로 새롭게 나온 것이 바로. 
@@ -164,6 +196,7 @@ But, `HTTP 1.1` 에는 고질적인 문제가 있었으니, 그것은 바로 **C
   <img src="img/http2.png" text-align="center" />
 </div>
 
+
 그리고 기본적으로 하나의 Connection으로 여러개의 Message를 여러개의 Frame으로 요청이 가능하기 때문에. 
 
 이를 `Multiplexed Stream` 처리방식이라고도 일컫는다!
@@ -171,6 +204,7 @@ But, `HTTP 1.1` 에는 고질적인 문제가 있었으니, 그것은 바로 **C
 <div>
   <img src="img/multiplex.png" text-align="center" />
 </div>
+
 
 또한 **HTTP Header Data Compression (HTTP 헤더 데이터 압축)** 을 지원하며. 
 
@@ -183,6 +217,7 @@ Huffman Coding에 따라 압축: 데이터 문자 빈도에 따라서 다른 길
 <div>
   <img src="img/header.png" text-align="center" />
 </div>
+
 
 요렇게 중복되는 Header들을 사전에 미리 검출하고, 중복되지 않은 값은 Encoding 하는 방식을 일컫는다. 
 
@@ -209,6 +244,7 @@ HTTPS 는 기본적으로 다음과 같은 특성을 만족시키기 위해 사�
 <div>
   <img src="img/https.png" text-align="center" />
 </div>
+
 
 
 
@@ -253,6 +289,7 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
 
 
 
+
 그래서 정부에서도 위와 같은 약점을 이용해서 특정 도메인에 대한 패킷을 모니터링한 것이다. 
 
 ```text
@@ -264,6 +301,7 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
 <div>
   <img src="img/tls.png" text-align="center" />
 </div>
+
 
 
 
@@ -330,5 +368,53 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
    > 구문 분석(HTML CSS JS) + 랜더링( DOM Tree 구성 - 랜더 트리 구성 - 랜더트리 레이아웃 배치 - 랜더트리 그리기 )을 하고,  
    >
    > HTML parsing, CSS parsing, Page Rendering, GPU Rendering을 통해 그림을 그려낸다
-   
+
+
+
+## OAuth
+
+**인증(Authentication)** 과 리소스에 대한 **권한부여(Authorization)** 를 제공하기 위한 방법. 
+
+그래서 서버와 클라이언트가 `access token` 기반으로 통신하기 때문에, 쿠키와 세션을 이용해. 
+
+client의 상태정보를 유지할 필요가 없게 되었다. 
+
+### OAuth를 구성하고 있는 4가지 객체
+
+* Resource owner: 보호된 자원에 접근하는 권한을 제공
+* Resource server: access token을 사용해서 요청을 수신할때, 권한을 검증하고 적절한 결과를 응답
+* Client: Resource owner의 보호된 자원에 접근 요청을하는 어플리케이션
+* Authorization server: client가 성공적으로 access token을 발급받은 이후에 resource owner를 인증하고 권한부여를 실시하는 자
+
+### OAuth Flow
+
+<div>
+  <img src="img/slack_oauth.png" text-align="center" />
+</div>
+
+1. Client가 Resource owner 혹은 Resource Server에게 권한 요청을 실시
+2. Resource owner가 허가하면, Grant(증서)를 발급받게 됨
+   1. Authorization Code: client가 owner에게 권한을 받는 것이 아닌, **owner가 Authorization Server에게 권한을 허가** 받아서 `Authorization Code` 를 client에게 발급해주고, client는 발급받은 `Code` 를 이용해서 Server에게 access token을 발급받는 과정
+   2. Implict: 1번 과정을 간소화한 과정, Authorization Code를 발급하는 과정이 생략된 것이다
+   3. Client Credentials: Client가 곧 Resource Owner일 경우, 자신을 인증할 수 있는 정보를 Authorization Server에게 보내면서 access token을 발급받는 과정
+   4. Resource owner Password Credentials: 자원 소유자의 password를 활용해서, access token을 얻기 위한 Grant(증서)로 활용
+3. 권한 Grant(증서)를 받은 client는 **Authorization Server** 에게 access token을 요청함
+4. 권한 Grant(증서)를 통해 유효성을 검증하고, client에게 access token을 전달
+5. 아래로는 client가 정성적으로 access token을 이용해서 자원을 요청하고 응답하는 과정
+
+### Refresh Token
+
+`Access Token` 에도 분명 유효기간이 정해져있기 때문에, 이 토큰이 만료된다면. 
+
+새로운 `Access Token` 을 발급받아야하고, 이 과정에서 **Refresh Token** 이 활용된다. 
+
+처음 권한 Grant(증서)를 owner로부터 받을때 이 Refresh Token을 같이 송신하여. 
+
+다음번 `Access Token` 발급시에는 Refresh Token만을 이용해서 재발급 받을 수 있게 된다
+
+
+
+
+
+
 
