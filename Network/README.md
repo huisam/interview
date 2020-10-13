@@ -412,9 +412,11 @@ client의 상태정보를 유지할 필요가 없게 되었다.
 
 다음번 `Access Token` 발급시에는 Refresh Token만을 이용해서 재발급 받을 수 있게 된다
 
+<br>
 
+참고
 
-
+* [내 맘대로 OAuth 2.0 정리](http://blog.weirdx.io/post/39955)
 
 
 
