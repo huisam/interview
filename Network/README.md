@@ -3,13 +3,25 @@
 통신하기 위한 기본 소양 :link:  
 
 ## 목차
-
-1. [RESTful](#RESTful)
-2. [TCP](#TCP)
-3. [HTTP HTTPS](#HTTP-HTTPS)
-4. [Chorme에 www.naver.com 을 입력하면?](#Chorme에-www.naver.com-을-입력하면?)
-5. [OAuth](#OAuth)
-
+- [Network](#network)
+  - [목차](#목차)
+  - [RESTful](#restful)
+    - [구성](#구성)
+    - [디자인 방식](#디자인-방식)
+    - [REST 이대로 괜찮은가](#rest-이대로-괜찮은가)
+  - [TCP](#tcp)
+    - [3-way handshaking](#3-way-handshaking)
+    - [ISN을 난수로 사용하는 이유?](#isn을-난수로-사용하는-이유)
+    - [4-way handshaking](#4-way-handshaking)
+  - [HTTP HTTPS](#http-https)
+    - [HTTP2](#http2)
+    - [HTTPS](#https)
+    - [SNI(Server Name Indication)](#sniserver-name-indication)
+  - [Chorme에 www.naver.com 을 입력하면?](#chorme에-wwwnavercom-을-입력하면)
+  - [OAuth](#oauth)
+    - [OAuth를 구성하고 있는 4가지 객체](#oauth를-구성하고-있는-4가지-객체)
+    - [OAuth Flow](#oauth-flow)
+    - [Refresh Token](#refresh-token)
 
 
 ## RESTful
@@ -71,8 +83,6 @@
 
 * 3-way handshaking
 * 4-way handshaking
-* 혼잡 제어(Congestion Control)
-* 흐름 제어(Flow Control)
 
 ### 3-way handshaking
 
@@ -288,8 +298,6 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
 </div>
 
 
-
-
 그래서 정부에서도 위와 같은 약점을 이용해서 특정 도메인에 대한 패킷을 모니터링한 것이다. 
 
 ```text
@@ -301,10 +309,6 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
 <div>
   <img src="img/tls.png" text-align="center" />
 </div>
-
-
-
-
 자세한 내용은 아래 링크를 참조하자
 
 * [SNI 차단방식이란 무엇인가?](https://m.blog.naver.com/amhoin/221465021173)
@@ -346,7 +350,7 @@ SNI를 사용하게 된다면, 이 인증과정에서 SNI 패킷을 주고 받�
 
 4. 대상과 TCP 를 통해서 Socket을 열고 맺는 단계를 시작한다
 
-   > 우리가 흔히 아는 그 [3-way-handshaking](#3-way handshaking) 이다
+   > 우리가 흔히 아는 그 [3-way-handshaking](#3-way-handshaking) 이다
 
 5. HTTPS 라면, TLS 과정이 추가된다
 
